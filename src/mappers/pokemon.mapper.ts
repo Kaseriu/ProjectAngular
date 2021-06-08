@@ -1,0 +1,21 @@
+import {IMove, IPokemon, IPokemonStat} from 'pokeapi-typescript';
+import {Pokemon} from '../models/pokemon';
+import {moveListMapper} from './moveList.mapper';
+
+export const pokemonMapper = (pokemon: IPokemon, moves: IMove[]): Pokemon => {
+  return new Pokemon({
+    name: pokemon.name,
+    hp: getStatValueByName('hp', pokemon.stats),
+    attackPower: getStatValueByName('attack', pokemon.stats),
+    speed: getStatValueByName('speed', pokemon.stats),
+    moveList: moveListMapper(moves)
+  });
+};
+
+const getStatValueByName = (statName: string, stats: IPokemonStat[]): number => {
+  const stat = stats.find(entry => entry.stat.name === statName);
+  if (stat === undefined) {
+    throw new Error(`Stat ${statName} not found`);
+  }
+  return stat.base_stat;
+};
