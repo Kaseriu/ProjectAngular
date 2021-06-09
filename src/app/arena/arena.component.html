@@ -1,4 +1,6 @@
+<div *ngIf="startDate !== null">{{startDate | date: 'medium'}}</div>
 <app-pokemon [pokemon]="battleStateService.firstPokemon"></app-pokemon>
 <app-pokemon [pokemon]="battleStateService.secondPokemon"></app-pokemon>
-<button (click)="handleClick()" [hidden]="battleStateService.gameEnded">{{battleStateService.gamePaused ? 'Play' : 'Pause'}}</button>
+<button (click)="handleClick()"
+        [hidden]="battleStateService.gameEnded">{{battleStateService.gamePaused ? 'Play' : 'Pause'}}</button>
 <button (click)="battleStateService.rematch()" [hidden]="!battleStateService.gameEnded">{{'Rematch'}}</button>
