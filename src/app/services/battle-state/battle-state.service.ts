@@ -10,8 +10,8 @@ export class BattleStateService{
   firstPokemon: Pokemon;
   secondPokemon: Pokemon;
   constructor() {
-    // pokemonProvider('pikachu').then(pokemon => this.firstPokemon = pokemon);
-    // pokemonProvider('pikachu').then(pokemon => this.secondPokemon = pokemon);
+    // pokemonProvider('kakuna').then(pokemon => this.firstPokemon = pokemon);
+    // pokemonProvider('kakuna').then(pokemon => this.secondPokemon = pokemon);
 
     const pikachu = new Pokemon({
       name: 'Pikachu',

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {BattleStateService} from '../services/battle-state/battle-state.service';
 import {Pokemon} from '../../models/pokemon';
 import {BattleLoggerService} from '../services/battle-logger/battle-logger.service';
@@ -8,42 +8,61 @@ import {BattleLoggerService} from '../services/battle-logger/battle-logger.servi
   templateUrl: './arena.component.html',
   styleUrls: ['./arena.component.css']
 })
-export class ArenaComponent implements OnInit {
+export class ArenaComponent {
+
+  gamePaused = true;
+  gameEnded = false;
+
+  attacker: Pokemon = undefined;
+  defender: Pokemon = undefined;
+
+  battleIntervalId: number = null;
 
   constructor(public battleStateService: BattleStateService, public battleLoggerService: BattleLoggerService) {
   }
 
-  ngOnInit(): void {
-    this.fight().then(r => '');
+  handleClick(): void {
+    if (this.gamePaused) {
+      this.gamePaused = false;
+      this.fight().then(a => {
+      });
+    } else {
+      this.gamePaused = true;
+      clearInterval(this.battleIntervalId);
+      this.battleIntervalId = null;
+    }
   }
 
-  async fight(): Promise<Pokemon> {
-    let attacker: Pokemon;
-    let defender: Pokemon;
-    const firstToAtk = this.battleStateService.firstPokemon.attackOrder(this.battleStateService.secondPokemon);
-    if (firstToAtk) {
-      attacker = this.battleStateService.firstPokemon;
-      defender = this.battleStateService.secondPokemon;
-    } else {
-      attacker = this.battleStateService.secondPokemon;
-      defender = this.battleStateService.firstPokemon;
-    }
-    while (attacker.hp !== 0 && defender.hp !== 0) {
-      this.battleLoggerService.log(attacker.attack(defender, Math.floor(Math.random() * attacker.moveList.length)));
-      if (defender.hp > 0) {
-        this.battleLoggerService.log(defender.name + ' hp : ' + defender.hp + '\n');
+  async fight(): Promise<void> {
+    if (this.attacker === undefined && this.defender === undefined) {
+      const firstToAtk = this.battleStateService.firstPokemon.attackOrder(this.battleStateService.secondPokemon);
+      if (firstToAtk) {
+        this.attacker = this.battleStateService.firstPokemon;
+        this.defender = this.battleStateService.secondPokemon;
+      } else {
+        this.attacker = this.battleStateService.secondPokemon;
+        this.defender = this.battleStateService.firstPokemon;
       }
-      const tmp = attacker;
-      attacker = defender;
-      defender = tmp;
-      await attacker.delay(1000);
     }
 
-    if (defender.hp === 0) {
-      return attacker;
-    } else {
-      return defender;
-    }
+    return new Promise<void>((resolve) => {
+      this.battleIntervalId = setInterval(() => {
+        this.battleLoggerService.log(this.attacker.attack(this.defender, Math.floor(Math.random() * this.attacker.moveList.length)));
+        if (this.defender.hp > 0) {
+          this.battleLoggerService.log(this.defender.name + ' hp : ' + this.defender.hp + '\n');
+        }
+
+        if (this.defender.hp === 0) {
+          clearInterval(this.battleIntervalId);
+          this.battleIntervalId = null;
+          this.gameEnded = true;
+          return resolve();
+        }
+
+        const tmp = this.attacker;
+        this.attacker = this.defender;
+        this.defender = tmp;
+      }, 1000);
+    });
   }
-
 }

@@ -28,20 +28,14 @@ export class Pokemon implements PokemonProps {
   }
 
   attackOrder(pokemon: Pokemon): boolean {
-    if (this.speed >= pokemon.speed) {
-      // console.log(this.name + ' attaque en premier\n');
-      return true;
-    } else {
-      // console.log(pokemon.name + ' attaque en premier\n');
-      return false;
-    }
+    return this.speed >= pokemon.speed;
   }
 
   attack(pokemon: Pokemon, ability: number): string {
     if (pokemon.hp <= 0) {
       return pokemon.name + ' est KO';
     } else {
-      pokemon.hp -= this.attackPower * this.moveList[ability].power;
+      pokemon.hp -= Math.floor(this.attackPower * this.moveList[ability].power);
       if (pokemon.hp < 0) {
         // console.log(this.name + ' attaque ' + this.moveList[ability].name);
         pokemon.hp = 0;
@@ -49,35 +43,5 @@ export class Pokemon implements PokemonProps {
       }
       return this.name + ' attaque ' + this.moveList[ability].name;
     }
-  }
-
-  // async fight(defPokemon: Pokemon): Promise<Pokemon> {
-  //   let firstToAtk = this.attackOrder(defPokemon);
-  //   while (this.hp !== 0 && defPokemon.hp !== 0) {
-  //     if (firstToAtk) {
-  //       console.log(this.attack(defPokemon, Math.floor(Math.random() * this.moveList.length)));
-  //       if (defPokemon.hp > 0) {
-  //         console.log(defPokemon.name + ' hp : ' + defPokemon.hp + '\n');
-  //       }
-  //       firstToAtk = false;
-  //     } else {
-  //       console.log(defPokemon.attack(this, Math.floor(Math.random() * defPokemon.moveList.length)));
-  //       if (this.hp > 0) {
-  //         console.log(this.name + ' hp : ' + this.hp + '\n');
-  //       }
-  //       firstToAtk = true;
-  //     }
-  //     await this.delay(1000);
-  //   }
-  //
-  //   if (defPokemon.hp === 0) {
-  //     return this;
-  //   } else {
-  //     return defPokemon;
-  //   }
-  // }
-
-  delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
