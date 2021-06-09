@@ -1,4 +1,4 @@
 <div [ngClass]="pokemon.hp  > 0 ? 'alive' : 'ko'">
   <div>{{pokemon.name}}</div>
-  <div>{{pokemon.hp}}</div>
+  <div>{{pokemon.hp | number: '1.1-4'}}</div>
 </div>
