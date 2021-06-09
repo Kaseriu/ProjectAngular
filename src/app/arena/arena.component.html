@@ -1,4 +1,4 @@
-<div *ngIf="startDate !== null">{{startDate | date: 'medium'}}</div>
+<div *ngIf="startDate !== null">{{startDate | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
 <app-pokemon [pokemon]="battleStateService.firstPokemon"></app-pokemon>
 <app-pokemon [pokemon]="battleStateService.secondPokemon"></app-pokemon>
 <button (click)="handleClick()"
