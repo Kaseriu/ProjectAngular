@@ -1,3 +1,5 @@
+import {LogEntry} from '../app/services/battle-logger/battle-logger.service';
+
 export interface MoveProps {
   readonly name: string;
   readonly power: number;
@@ -31,17 +33,18 @@ export class Pokemon implements PokemonProps {
     return this.speed >= pokemon.speed;
   }
 
-  attack(pokemon: Pokemon, ability: number): string {
-    if (pokemon.hp <= 0) {
-      return pokemon.name + ' est KO';
-    } else {
-      pokemon.hp -= Math.floor(this.attackPower * this.moveList[ability].power);
-      if (pokemon.hp < 0) {
-        // console.log(this.name + ' attaque ' + this.moveList[ability].name);
-        pokemon.hp = 0;
-        return pokemon.name + ' est KO\n';
-      }
-      return this.name + ' attaque ' + this.moveList[ability].name;
+  attack(pokemon: Pokemon, ability: number): LogEntry {
+    pokemon.hp -= Math.floor(this.attackPower * this.moveList[ability].power);
+    if (pokemon.hp < 0) {
+      pokemon.hp = 0;
+      return {
+        text: pokemon.name + ' est KO',
+        cssClass: 'end'
+      };
     }
+    return {
+      text: this.name + ' attaque ' + this.moveList[ability].name,
+      cssClass: 'regular'
+    };
   }
 }

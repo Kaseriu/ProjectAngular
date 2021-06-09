@@ -1,1 +1,1 @@
-<div *ngFor="let log of battleLogger.logs">{{log}}</div>
+<div *ngFor="let log of battleLogger.logs" [ngClass]="log.cssClass">{{log.text}}</div>
