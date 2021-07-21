@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Pokemon} from '../../../models/pokemon';
-import {pokemonProvider} from '../../../providers/pokemon.provider';
 import {BattleLoggerService} from '../battle-logger/battle-logger.service';
+import {interval} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BattleStateService{
+export class BattleStateService {
 
   gamePaused = true;
   gameEnded = false;
@@ -14,10 +14,9 @@ export class BattleStateService{
   attacker: Pokemon = undefined;
   defender: Pokemon = undefined;
 
-  battleIntervalId: number = null;
-
   firstPokemon: Pokemon;
   secondPokemon: Pokemon;
+
   constructor(private battleLoggerService: BattleLoggerService) {
     // pokemonProvider('kakuna').then(pokemon => this.firstPokemon = pokemon);
     // pokemonProvider('kakuna').then(pokemon => this.secondPokemon = pokemon);
@@ -66,12 +65,12 @@ export class BattleStateService{
     this.secondPokemon = magicarpe;
   }
 
-    rematch(): void {
-      window.location.reload();
-    }
+  rematch(): void {
+    window.location.reload();
+  }
 
-    async fight(): Promise<void> {
-      if (this.attacker === undefined && this.defender === undefined) {
+  fight(): boolean {
+    if (this.attacker === undefined && this.defender === undefined) {
       const firstToAtk = this.firstPokemon.attackOrder(this.secondPokemon);
       if (firstToAtk) {
         this.attacker = this.firstPokemon;
@@ -82,27 +81,22 @@ export class BattleStateService{
       }
     }
 
-      return new Promise<void>((resolve) => {
-      this.battleIntervalId = setInterval(() => {
-        this.battleLoggerService.log(this.attacker.attack(this.defender, Math.floor(Math.random() * this.attacker.moveList.length)));
-        if (this.defender.hp > 0) {
-          this.battleLoggerService.log({
-            text: this.defender.name + ' hp : ' + this.defender.hp + '\n',
-            cssClass: 'regular'
-          });
-        }
+    this.battleLoggerService.log(this.attacker.attack(this.defender, Math.floor(Math.random() * this.attacker.moveList.length)));
+    if (this.defender.hp > 0) {
+      this.battleLoggerService.log({
+        text: this.defender.name + ' hp : ' + this.defender.hp + '\n',
+        cssClass: 'regular'
+      });
+    }
 
-        if (this.defender.hp === 0) {
-          clearInterval(this.battleIntervalId);
-          this.battleIntervalId = null;
-          this.gameEnded = true;
-          return resolve();
-        }
+    if (this.defender.hp === 0) {
+      this.gameEnded = true;
+      return true;
+    }
 
-        const tmp = this.attacker;
-        this.attacker = this.defender;
-        this.defender = tmp;
-      }, 1000);
-    });
+    const tmp = this.attacker;
+    this.attacker = this.defender;
+    this.defender = tmp;
+    return false;
   }
 }

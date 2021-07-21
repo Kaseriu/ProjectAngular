@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {BattleStateService} from '../services/battle-state/battle-state.service';
+import {interval, Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-arena',
@@ -9,21 +10,29 @@ import {BattleStateService} from '../services/battle-state/battle-state.service'
 export class ArenaComponent {
 
   startDate: number = null;
+  battlePipe: Observable<number>;
+  battleSubscription: Subscription;
 
   constructor(public battleStateService: BattleStateService) {
   }
 
   handleClick(): void {
     this.displayDate();
+    this.battlePipe = interval(1000);
 
     if (this.battleStateService.gamePaused) {
       this.battleStateService.gamePaused = false;
-      this.battleStateService.fight().then(() => {
+      this.battleSubscription = this.battlePipe.subscribe(value => {
+        const ended = this.battleStateService.fight();
+        if (ended) {
+          this.battleSubscription.unsubscribe();
+        }
       });
     } else {
       this.battleStateService.gamePaused = true;
-      clearInterval(this.battleStateService.battleIntervalId);
-      this.battleStateService.battleIntervalId = null;
+      this.battleSubscription.unsubscribe();
+      this.battleSubscription = null;
+      this.battlePipe = null;
     }
   }
 
