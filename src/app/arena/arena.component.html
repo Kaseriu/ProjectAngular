@@ -6,7 +6,7 @@
         <app-pokemon [pokemon]="battleStateService.secondPokemon"></app-pokemon>
     </div>
     <button mat-raised-button color="accent" (click)="handleClick()"
-            *ngIf="battleStateService.gameEnded">{{battleStateService.gamePaused ? 'Play' : 'Pause'}}</button>
+            *ngIf="!battleStateService.gameEnded">{{battleStateService.gamePaused ? 'Play' : 'Pause'}}</button>
     <button mat-raised-button color="accent" (click)="battleStateService.rematch()"
-            *ngIf="!battleStateService.gameEnded">{{'Rematch'}}</button>
+            *ngIf="battleStateService.gameEnded">Rematch</button>
 </div>
