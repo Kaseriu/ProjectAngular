@@ -6,7 +6,7 @@ export const pokemonMapper = (pokemon: IPokemon, moves: IMove[]): Pokemon => {
   return new Pokemon({
     name: pokemon.name,
     hp: getStatValueByName('hp', pokemon.stats),
-    attackPower: getStatValueByName('attack', pokemon.stats),
+    attackPower: !!getStatValueByName('attack', pokemon.stats) ? getStatValueByName('attack', pokemon.stats) / 500 : 0,
     speed: getStatValueByName('speed', pokemon.stats),
     moveList: moveListMapper(moves)
   });
