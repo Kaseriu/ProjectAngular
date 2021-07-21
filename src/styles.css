@@ -6,6 +6,7 @@ html, body {
 
 body {
     background: url("https://www.teahub.io/photos/full/68-683557_alola-pokemon-regions-map.jpg");
+    background-size: cover;
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     height: fit-content;
