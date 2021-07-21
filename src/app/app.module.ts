@@ -9,8 +9,11 @@ import {BattleLoggerService} from './services/battle-logger/battle-logger.servic
 import {PokemonSelectionComponent} from './pokemon-selection/pokemon-selection.component';
 import {routes} from './router';
 import {RouterModule} from '@angular/router';
-import { BattleViewComponent } from './battle-view/battle-view.component';
+import {BattleViewComponent} from './battle-view/battle-view.component';
 import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
     declarations: [
@@ -24,7 +27,10 @@ import {FormsModule} from '@angular/forms';
     imports: [
         RouterModule.forRoot(routes),
         BrowserModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatFormFieldModule
     ],
     providers: [BattleLoggerService],
     bootstrap: [AppComponent]

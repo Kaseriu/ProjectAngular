@@ -1,7 +1,24 @@
 .regular {
-  color: blue;
+    color: #0000b3;
 }
 
 .end {
-  color: red;
+    color: #c70000;
+}
+
+.logger {
+    background-color: #f3edcd;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.log {
+    background-color: white;
+    margin: 3px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
 }

@@ -1,7 +1,24 @@
 .alive {
-  color: blue;
+  color: #0000b3;
 }
 
 .ko {
-  color: red;
+  color: #c70000;
+}
+
+.ko img {
+    opacity: .3;
+}
+
+.pokemon {
+    width: fit-content;
+    background-color: #d8d8d8;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.name {
+    font-size: 1.3em;
+    font-weight: 600;
 }

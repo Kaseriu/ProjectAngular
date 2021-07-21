@@ -60,7 +60,7 @@ export class BattleStateService {
         this.battleLoggerService.log(this.attacker.attack(this.defender, Math.floor(Math.random() * this.attacker.moveList.length)));
         if (this.defender.hp > 0) {
             this.battleLoggerService.log({
-                text: this.defender.name + ' hp : ' + this.defender.hp + '\n',
+                text: this.defender.name + ' HP : ' + this.defender.hp + '\n',
                 cssClass: 'regular'
             });
         }

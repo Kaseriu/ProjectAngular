@@ -1,1 +1,4 @@
-<div *ngFor="let log of battleLogger.logs" [ngClass]="log.cssClass">{{log.text}}</div>
+<div *ngIf="battleLogger.logs.length > 0" class="logger">
+    <div class="log" *ngFor="let log of battleLogger.logs"
+         [ngClass]="log.cssClass">{{log.text[0].toUpperCase() + log.text.substring(1)}}</div>
+</div>

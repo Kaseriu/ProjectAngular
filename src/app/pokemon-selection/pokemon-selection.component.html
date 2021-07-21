@@ -1,11 +1,13 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <div>
-        Pokemon 1
-        <input name="pokemon1" ngModel>
+        <div class="field">
+            <div>First Pokemon</div>
+            <input name="pokemon1" ngModel>
+        </div>
+        <div class="field">
+            <div>Second Pokemon</div>
+            <input name="pokemon2" ngModel>
+        </div>
     </div>
-    <div>
-        Pokemon 2
-        <input name="pokemon2" ngModel>
-    </div>
-    <button>Fight</button>
+    <button mat-raised-button color="primary">Fight</button>
 </form>

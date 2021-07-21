@@ -1,0 +1,12 @@
+.content {
+    text-align: center;
+}
+
+.pokemons {
+    display: flex;
+}
+
+.time {
+    text-align: center;
+    margin: 10px;
+}
