@@ -1,0 +1,9 @@
+<div>
+    Pokemon 1
+    <input [(ngModel)]="pokemon1">
+</div>
+<div>
+    Pokemon 2
+    <input [(ngModel)]="pokemon2">
+</div>
+<button [disabled]="!pokemon1 || !pokemon2" (click)="routingService.goToBattle(pokemon1, pokemon2)">Fight</button>

@@ -1,19 +1,29 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BattleStateService} from '../services/battle-state/battle-state.service';
 import {interval, Observable, Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-arena',
     templateUrl: './arena.component.html',
     styleUrls: ['./arena.component.css']
 })
-export class ArenaComponent {
+export class ArenaComponent implements OnInit {
 
     startDate: number = null;
     battlePipe: Observable<number>;
     battleSubscription: Subscription;
 
-    constructor(public battleStateService: BattleStateService) {
+    constructor(
+        public battleStateService: BattleStateService,
+        private route: ActivatedRoute
+    ) {
+    }
+
+    ngOnInit(): void {
+        const pokemon1 = this.route.snapshot.queryParams.pokemon1;
+        const pokemon2 = this.route.snapshot.queryParams.pokemon2;
+        this.battleStateService.setPokemons(pokemon1, pokemon2);
     }
 
     handleClick(): void {
