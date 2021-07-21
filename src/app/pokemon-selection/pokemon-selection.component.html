@@ -1,9 +1,11 @@
-<div>
-    Pokemon 1
-    <input [(ngModel)]="pokemon1">
-</div>
-<div>
-    Pokemon 2
-    <input [(ngModel)]="pokemon2">
-</div>
-<button [disabled]="!pokemon1 || !pokemon2" (click)="routingService.goToBattle(pokemon1, pokemon2)">Fight</button>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div>
+        Pokemon 1
+        <input name="pokemon1" ngModel>
+    </div>
+    <div>
+        Pokemon 2
+        <input name="pokemon2" ngModel>
+    </div>
+    <button>Fight</button>
+</form>
