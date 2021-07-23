@@ -2,15 +2,24 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Pokemon} from '../../models/pokemon';
 
 @Component({
-  selector: 'app-pokemon',
-  templateUrl: './pokemon.component.html',
-  styleUrls: ['./pokemon.component.css']
+    selector: 'app-pokemon',
+    templateUrl: './pokemon.component.html',
+    styleUrls: ['./pokemon.component.css']
 })
 export class PokemonComponent implements OnInit {
 
-  @Input() pokemon: Pokemon;
-  constructor() { }
+    @Input() pokemon: Pokemon = new Pokemon({
+        sprite: 'sprite',
+        hp: 100,
+        attackPower: 100,
+        name: 'Pikachu',
+        speed: 100,
+        moveList: []
+    });
 
-  ngOnInit(): void {
-  }
+    constructor() {
+    }
+
+    ngOnInit(): void {
+    }
 }

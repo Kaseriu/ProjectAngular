@@ -8,6 +8,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 describe('ArenaComponent', () => {
     let component: ArenaComponent;
     let fixture: ComponentFixture<ArenaComponent>;
+    let compiled: HTMLElement;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -20,6 +21,7 @@ describe('ArenaComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ArenaComponent);
+        compiled = fixture.nativeElement;
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

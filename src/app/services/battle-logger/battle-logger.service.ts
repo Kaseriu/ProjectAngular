@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 export interface LogEntry {
-  text: string;
-  cssClass: string;
+    text: string;
+    cssClass: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class BattleLoggerService {
 
-  logs: LogEntry[] = [];
-  constructor() { }
+    logs: LogEntry[] = [];
 
-  log(logEntry: LogEntry): void {
-    this.logs.push(logEntry);
-  }
+    constructor() {
+    }
+
+    log(logEntry: LogEntry): void {
+        this.logs.push(logEntry);
+    }
 }
