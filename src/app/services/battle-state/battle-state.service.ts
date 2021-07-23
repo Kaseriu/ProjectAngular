@@ -27,7 +27,6 @@ export class BattleStateService {
 
     setPokemons(pokemon1: string, pokemon2: string): void {
         this.pokemonProviderService.provide(pokemon1).subscribe(value => {
-            console.log(value);
             if (value === null) {
                 this.routingService.goToPokemonSelection().then();
                 return;
