@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { BattleLoggerService } from './battle-logger.service';
+import {BattleLoggerService} from './battle-logger.service';
 
 describe('BattleLoggerService', () => {
-  let service: BattleLoggerService;
+    let service: BattleLoggerService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(BattleLoggerService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(BattleLoggerService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });
