@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         FormsModule,
         BrowserAnimationsModule,
         MatButtonModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        HttpClientModule
     ],
     providers: [BattleLoggerService],
     bootstrap: [AppComponent]

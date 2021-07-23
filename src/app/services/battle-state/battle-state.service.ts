@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Pokemon} from '../../../models/pokemon';
 import {BattleLoggerService} from '../battle-logger/battle-logger.service';
-import {pokemonProvider} from '../../../providers/pokemon.provider';
 import {RoutingService} from '../routing/routing.service';
+import {PokemonProviderService} from '../pokemon-provider/pokemon-provider.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,19 +20,21 @@ export class BattleStateService {
 
     constructor(
         private battleLoggerService: BattleLoggerService,
-        private routingService: RoutingService
+        private routingService: RoutingService,
+        private pokemonProviderService: PokemonProviderService
     ) {
     }
 
     setPokemons(pokemon1: string, pokemon2: string): void {
-        pokemonProvider(pokemon1).subscribe(value => {
+        this.pokemonProviderService.provide(pokemon1).subscribe(value => {
+            console.log(value);
             if (value === null) {
                 this.routingService.goToPokemonSelection().then();
                 return;
             }
             this.firstPokemon = value;
         });
-        pokemonProvider(pokemon2).subscribe(value => {
+        this.pokemonProviderService.provide(pokemon2).subscribe(value => {
             if (value === null) {
                 this.routingService.goToPokemonSelection().then();
                 return;
